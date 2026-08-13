@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nickie's Poetry Corner</title>
+<style>
+:root{
+  --bg:#09090d; --card:#121119; --card2:#17131d;
+  --text:#eeeaf2; --muted:#bdb6c5; --accent:#d9b8ff;
+  --border:#2d2737; --danger:#ff8fa3;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:Georgia,"Times New Roman",serif;
+  background:var(--bg); color:var(--text); line-height:1.7;
+}
+nav{
+  position:sticky;top:0;z-index:20;padding:15px 7%;
+  display:flex;justify-content:space-between;align-items:center;
+  background:rgba(9,9,13,.94);border-bottom:1px solid var(--border);
+  backdrop-filter:blur(10px);
+}
+.logo{color:var(--accent);font-weight:bold;letter-spacing:1px}
+nav ul{display:flex;gap:22px;list-style:none}
+nav a{color:#d8d3df;text-decoration:none;font-family:Arial,sans-serif;font-size:.9rem}
+nav a:hover{color:var(--accent)}
+header{
+  min-height:70vh;display:grid;place-items:center;text-align:center;padding:70px 20px;
+  background:radial-gradient(circle at 50% 35%,#251936 0%,#09090d 58%);
+}
+.hero h1{font-size:clamp(2.7rem,8vw,6rem);letter-spacing:2px}
+.hero p{color:#bbaec8;font-style:italic;font-size:1.15rem}
+.sparkle{color:var(--accent);font-size:1.4rem;margin-bottom:15px}
+section{width:min(1050px,90%);margin:auto;padding:70px 0}
+.section-title{text-align:center;color:var(--accent);font-size:2.2rem;margin-bottom:30px}
+.poem-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:22px}
+.poem-card{
+  background:var(--card);border:1px solid var(--border);border-radius:18px;
+  padding:27px;transition:.25s;
+}
+.poem-card:hover{transform:translateY(-5px);border-color:#765493}
+.poem-card h3{font-size:1.4rem;margin-bottom:12px}
+.poem-text{white-space:pre-line;color:var(--muted);margin-bottom:18px}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+button{
+  border:1px solid var(--border);background:#1b1722;color:#ddd4e5;
+  padding:8px 13px;border-radius:10px;cursor:pointer;font-family:Arial,sans-serif;
+}
+button:hover{border-color:var(--accent);color:var(--accent)}
+.like-btn.liked{color:#ff9db1;border-color:#ff718f}
+.comments{margin-top:20px;padding-top:17px;border-top:1px solid var(--border)}
+.comments h4{margin-bottom:10px;color:#ddd3e7}
+.comment-list{display:grid;gap:8px;margin-bottom:12px}
+.comment{
+  background:#0e0d13;border-radius:10px;padding:9px 11px;color:#bdb6c5;
+  font-family:Arial,sans-serif;font-size:.9rem;
+}
+.comment strong{color:#eeeaf2}
+.form-box{
+  background:var(--card2);border:1px solid var(--border);border-radius:18px;padding:28px;
+  max-width:760px;margin:auto;
+}
+label{display:block;margin:12px 0 6px;color:#ddd3e7}
+input,textarea{
+  width:100%;border:1px solid var(--border);background:#0c0b10;color:var(--text);
+  border-radius:10px;padding:12px;font:inherit;outline:none;
+}
+input:focus,textarea:focus{border-color:#8d68ae}
+textarea{min-height:180px;resize:vertical}
+.submit{margin-top:15px;background:#261b31;border-color:#765493;color:#eadcff}
+.notice{
+  margin-top:14px;color:#9f96a8;font-family:Arial,sans-serif;font-size:.85rem;
+}
+.empty{color:#8f8897;text-align:center;padding:25px}
+.community-card{margin-top:22px}
+.small{font-family:Arial,sans-serif;color:#8f8897;font-size:.82rem}
+footer{text-align:center;padding:35px 20px;border-top:1px solid var(--border);color:#8f8897;font-family:Arial,sans-serif}
+@media(max-width:600px){
+  nav{padding:13px 5%} nav ul{gap:11px} nav a{font-size:.78rem}
+  .logo{font-size:.9rem}
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="logo">✦ Nickie's Poetry</div>
+  <ul>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#poems">Poems</a></li>
+    <li><a href="#community">Community</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+</nav>
+
+<header id="home">
+  <div class="hero">
+    <div class="sparkle">✧ ✦ ✧</div>
+    <h1>Nickie's Poetry Corner</h1>
+    <p>Words from a quiet heart.</p>
+  </div>
+</header>
+
+<section id="poems">
+  <h2 class="section-title">📖 My Poems</h2>
+
+  <div class="poem-grid">
+
+    <article class="poem-card">
+      <h3>Through My Eyes</h3>
+      <p class="poem-text">The world looks different
+when you stop and see,
+the little things around you
+that were waiting quietly.</p>
+
+      <div class="actions">
+        <button class="like-btn" onclick="likePoem(this)">♡ Like <span>0</span></button>
+        <button onclick="sharePoem('Through My Eyes')">↗ Share</button>
+        <button onclick="focusComment(this)">💬 Comment</button>
+      </div>
+
+      <div class="comments">
+        <h4>Comments</h4>
+        <div class="comment-list"></div>
+        <input class="comment-name" placeholder="Your name">
+        <input class="comment-input" placeholder="Write a comment...">
+        <button onclick="addComment(this)">Post comment</button>
+      </div>
+    </article>
+
+    <article class="poem-card">
+      <h3>Unsaid Words</h3>
+      <p class="poem-text">Some words stay hidden,
+some feelings never show.
+Sometimes the quietest heart
+has the most to say.</p>
+
+      <div class="actions">
+        <button class="like-btn" onclick="likePoem(this)">♡ Like <span>0</span></button>
+        <button onclick="sharePoem('Unsaid Words')">↗ Share</button>
+        <button onclick="focusComment(this)">💬 Comment</button>
+      </div>
+
+      <div class="comments">
+        <h4>Comments</h4>
+        <div class="comment-list"></div>
+        <input class="comment-name" placeholder="Your name">
+        <input class="comment-input" placeholder="Write a comment...">
+        <button onclick="addComment(this)">Post comment</button>
+      </div>
+    </article>
+
+    <article class="poem-card">
+      <h3>Midnight Thoughts</h3>
+      <p class="poem-text">When the world grows silent
+and the stars begin to shine,
+my thoughts become little poems
+written one line at a time.</p>
+
+      <div class="actions">
+        <button class="like-btn" onclick="likePoem(this)">♡ Like <span>0</span></button>
+        <button onclick="sharePoem('Midnight Thoughts')">↗ Share</button>
+        <button onclick="focusComment(this)">💬 Comment</button>
+      </div>
+
+      <div class="comments">
+        <h4>Comments</h4>
+        <div class="comment-list"></div>
+        <input class="comment-name" placeholder="Your name">
+        <input class="comment-input" placeholder="Write a comment...">
+        <button onclick="addComment(this)">Post comment</button>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section id="community">
+  <h2 class="section-title">🪶 Share Your Poetry</h2>
+
+  <div class="form-box">
+    <form id="poemForm">
+      <label for="author">Your poet name</label>
+      <input id="author" required maxlength="40" placeholder="e.g. MoonWriter">
+
+      <label for="title">Poem title</label>
+      <input id="title" required maxlength="80" placeholder="Give your poem a title">
+
+      <label for="poem">Your poem</label>
+      <textarea id="poem" required maxlength="5000" placeholder="Write your poem here..."></textarea>
+
+      <button class="submit" type="submit">✦ Add My Poem</button>
+      <p class="notice">Demo mode: poems and comments are saved only in this browser. To make them visible to everyone, connect the site to a database/backend.</p>
+    </form>
+  </div>
+
+  <div id="communityList" class="poem-grid community-card"></div>
+</section>
+
+<section id="about">
+  <div class="form-box">
+    <h2 class="section-title">🌙 About the Poet</h2>
+    <p style="text-align:center;color:var(--muted);font-size:1.08rem">
+      Hi, I'm <strong>Nickie</strong> — a student and poet who loves
+      turning thoughts, feelings, and everyday moments into words.
+      This is a little corner where poems can live, grow, and be shared.
+    </p>
+  </div>
+</section>
+
+<footer>✦ © 2026 Nickie's Poetry Corner ✦</footer>
+
+<script>
+function likePoem(button){
+  const count = button.querySelector("span");
+  let likes = Number(count.textContent);
+  if(button.classList.contains("liked")){
+    likes--;
+    button.classList.remove("liked");
+    button.firstChild.textContent = "♡ Like ";
+  }else{
+    likes++;
+    button.classList.add("liked");
+    button.firstChild.textContent = "♥ Liked ";
+  }
+  count.textContent = likes;
+}
+
+function sharePoem(title){
+  const text = "Check out the poem \"" + title + "\" on Nickie's Poetry Corner!";
+  if(navigator.share){
+    navigator.share({title:title,text:text,url:location.href}).catch(()=>{});
+  }else{
+    navigator.clipboard?.writeText(location.href);
+    alert("Poem link copied! You can paste it anywhere.");
+  }
+}
+
+function focusComment(button){
+  const card = button.closest(".poem-card");
+  card.querySelector(".comment-input").focus();
+}
+
+function addComment(button){
+  const box = button.closest(".comments");
+  const name = box.querySelector(".comment-name").value.trim();
+  const text = box.querySelector(".comment-input").value.trim();
+
+  if(!name || !text){
+    alert("Please enter your name and a comment.");
+    return;
+  }
+
+  const comment = document.createElement("div");
+  comment.className = "comment";
+
+  const strong = document.createElement("strong");
+  strong.textContent = name + ": ";
+
+  comment.appendChild(strong);
+  comment.appendChild(document.createTextNode(text));
+
+  box.querySelector(".comment-list").appendChild(comment);
+  box.querySelector(".comment-name").value = "";
+  box.querySelector(".comment-input").value = "";
+}
+
+const form = document.getElementById("poemForm");
+const communityList = document.getElementById("communityList");
+
+function loadCommunityPoems(){
+  const poems = JSON.parse(localStorage.getItem("nickieCommunityPoems") || "[]");
+  communityList.innerHTML = "";
+
+  if(!poems.length){
+    communityList.innerHTML = '<p class="empty">No community poems yet. Be the first to share one! ✨</p>';
+    return;
+  }
+
+  poems.forEach((item,index)=>{
+    const card = document.createElement("article");
+    card.className = "poem-card";
+
+    const title = document.createElement("h3");
+    title.textContent = item.title;
+
+    const by = document.createElement("p");
+    by.className = "small";
+    by.textContent = "By " + item.author;
+
+    const poem = document.createElement("p");
+    poem.className = "poem-text";
+    poem.textContent = item.poem;
+
+    const share = document.createElement("button");
+    share.textContent = "↗ Share";
+    share.onclick = ()=>sharePoem(item.title);
+
+    card.append(title,by,poem,share);
+    communityList.appendChild(card);
+  });
+}
+
+form.addEventListener("submit",(event)=>{
+  event.preventDefault();
+
+  const item = {
+    author: document.getElementById("author").value.trim(),
+    title: document.getElementById("title").value.trim(),
+    poem: document.getElementById("poem").value.trim()
+  };
+
+  const poems = JSON.parse(localStorage.getItem("nickieCommunityPoems") || "[]");
+  poems.unshift(item);
+  localStorage.setItem("nickieCommunityPoems", JSON.stringify(poems));
+
+  form.reset();
+  loadCommunityPoems();
+  alert("Your poem was added to this browser's Community Poems section! ✨");
+  document.getElementById("community").scrollIntoView();
+});
+
+loadCommunityPoems();
+</script>
+
+</body>
+</html>
